@@ -1,52 +1,41 @@
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-
-public class example extends JFrame {
-    /** */
-    private static final long serialVersionUID = -4767854098431909437L;
-
-    public example(){
-        setSize(200, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        DocumentFilter filter = new UppercaseDocumentFilter();
-
-        JTextField firstName = new JTextField();
-        firstName.setPreferredSize(new Dimension(100, 20));
-        ((AbstractDocument) firstName.getDocument()).setDocumentFilter(filter);
-
-        JTextField lastName = new JTextField();
-        lastName.setPreferredSize(new Dimension(100, 20));
-        ((AbstractDocument) lastName.getDocument()).setDocumentFilter(filter);
-
-        add(firstName);
-        add(lastName);
-    }
-
+public class example {
     public static void main(String[] args) {
-        new example().setVisible(true);
-    }
+        JFrame frame = new JFrame("Case Conversion Example");
+        JPanel panel = new JPanel();
 
-}
+        JTextField textField = new JTextField(20);
+        JButton uppercaseButton = new JButton("Uppercase");
+        JButton lowercaseButton = new JButton("Lowercase");
 
-class UppercaseDocumentFilter extends DocumentFilter {
-    public void insertString(DocumentFilter.FilterBypass fb, int offset,
-            String text, AttributeSet attr) throws BadLocationException {
+        // ActionListener for Uppercase Button
+        uppercaseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = textField.getText();
+                textField.setText(text.toUpperCase());
+            }
+        });
 
-        fb.insertString(offset, text.toUpperCase(), attr);
-    }
+        // ActionListener for Lowercase Button
+        lowercaseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = textField.getText();
+                textField.setText(text.toLowerCase());
+            }
+        });
 
-    public void replace(DocumentFilter.FilterBypass fb, int offset, int length,
-            String text, AttributeSet attrs) throws BadLocationException {
+        panel.add(textField);
+        panel.add(uppercaseButton);
+        panel.add(lowercaseButton);
 
-        fb.replace(offset, length, text.toUpperCase(), attrs);
+        frame.add(panel);
+        frame.setSize(300, 100);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }

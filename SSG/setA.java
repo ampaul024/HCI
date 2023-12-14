@@ -1,53 +1,54 @@
 package SSG;
 
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.Flow;
 
 import javax.swing.*;
 
-public class setA implements ActionListener {
+public class setA {
 
-    private JFrame frame;
-    private JButton UC;
-    private JButton LC;
-    private JTextField txt;
+    public static void main(String[] args) {
 
-    public setA(){
-    txt = new JTextField(1);
-    UC = new JButton("Upper Case");
-    LC = new JButton("Lower Case");
+        JFrame frame = new JFrame("Silly String Game");
 
-    JPanel panel = new JPanel(new GridLayout(3,1));
-    panel.add(UC);
-    panel.add(txt);
-    panel.add(LC);
+        JPanel p = new JPanel();
 
-    UC.setSize(20,200);
+        JButton UC = new JButton("Upper Case");
+        JTextField txt = new JTextField(10);
+        JButton LC = new JButton("Lower Case");
 
-    frame = new JFrame("Silly String Game");
-    frame.setTitle("Silly String Game");
-    frame.setSize(500,500);
-    frame.add(panel);
-    frame.setVisible(true);
+        frame.setSize(250, 125);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
 
-    frame.pack();
+        p.setLayout(new BorderLayout());
 
-    UC.addActionListener((ActionListener)this);
-    LC.addActionListener((ActionListener)this);  
-    
+        UC.addActionListener(new ActionListener() {
+            @Override
+
+            public void actionPerformed(ActionEvent e) {
+                String text = txt.getText();
+                txt.setText(text.toUpperCase());
+            }
+
+        });
+
+        LC.addActionListener(new ActionListener() {
+            @Override
+
+            public void actionPerformed(ActionEvent e) {
+                String text1 = txt.getText();
+                txt.setText(text1.toLowerCase());
+            }
+        });
+
+        frame.add(p);
+        p.add(UC, BorderLayout.NORTH);
+        p.add(txt, BorderLayout.CENTER);
+        p.add(LC, BorderLayout.SOUTH);
+
+    }
+
 }
-
-public void actionPerformed(ActionEvent event){
-
-    String UpperCase = UC.getText();
-    String toUpperCase (UpperCase);
-
-}
-public static void main (String args[]){
-    new setA();
-}
-
-}
-
